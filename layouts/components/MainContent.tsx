@@ -1,5 +1,6 @@
 import React from 'react';
 import { ViewType } from './types';
+import { getAppConfig } from '../../app-loader';
 
 interface MainContentProps { 
   children: React.ReactNode;
@@ -14,8 +15,12 @@ export const MainContent: React.FC<MainContentProps> = ({
   appHeight,
   viewType
 }) => {
-  // Determine if view should have padding (canvas and workflow editors need full space)
-  const isFullWidthView = ['canvas', 'workflow'].includes(viewType);
+  // Get app config
+  const appConfig = getAppConfig();
+  
+  // Determine if view should have padding (read from config or fallback to defaults)
+  const fullWidthViewTypes = appConfig?.ui?.layout?.fullWidthViewTypes || ['canvas', 'workflow'];
+  const isFullWidthView = fullWidthViewTypes.includes(viewType);
   
   // Apply different classes based on view type
   const getContentClasses = () => {
@@ -32,7 +37,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   
   return (
     <div className={getContentClasses()}>
-      <div className={isFullWidthView ? "p-0 h-full" : "p-4 md:p-6"}>
+      <div className={isFullWidthView ? "p-0 h-full" : "container mx-auto p-4 md:p-6"}>
         {children}
       </div>
     </div>

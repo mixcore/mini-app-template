@@ -107,7 +107,8 @@
     "layout": {
       "fluid": true,
       "container": "max-w-7xl",
-      "padding": "p-4 md:p-6"
+      "padding": "p-4 md:p-6",
+      "fullWidthViewTypes": ["canvas", "workflow"]
     },
     "animations": {
       "enabled": true,
