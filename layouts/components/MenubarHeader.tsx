@@ -482,26 +482,6 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
               variant="ghost" 
               size="icon"
               className="h-9 w-9" 
-              onClick={toggleContainerClass}
-            >
-              {isFluidLayout 
-                ? <Minimize2 className="h-4 w-4" /> 
-                : <Maximize2 className="h-4 w-4" />}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">
-            {isFluidLayout ? 'Standard view' : 'Full width view'}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button 
-              variant="ghost" 
-              size="icon"
-              className="h-9 w-9" 
               onClick={copyDeepLink}
             >
               <Copy className="h-4 w-4" />
