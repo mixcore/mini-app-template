@@ -5,7 +5,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import AppShell from './layouts/AppShell';
 import Dashboard from './components/Dashboard';
 import ItemList from './components/ItemList';
-import ItemDetail from './components/ItemDetail';
+import { ItemDetail } from './components/ItemDetail';
 import useContainerStatus from './hooks/useContainerStatus';
 import './app-globals.css'; // Import app-specific styles
 import { initializeApp, getAppConfig } from './app-loader';
@@ -320,10 +320,10 @@ export function MiniApp(props: MiniAppProps) {
         return <Dashboard onItemClick={handleItemClick} />;
       case 'list':
         console.log('MiniApp: Rendering List view');
-        return props.standalone ? <ItemList /> : <ItemList onItemClick={handleItemClick} />;
+        return props.standalone ? <ItemList onItemClick={() => {}} /> : <ItemList onItemClick={handleItemClick} />;
       case 'detail':
         console.log('MiniApp: Rendering Detail view');
-        return selectedItemId ? <ItemDetail itemId={selectedItemId} /> : <div>No item selected</div>;
+        return selectedItemId ? <ItemDetail itemId={selectedItemId} onBack={() => handleViewChange('list')} /> : <div>No item selected</div>;
       case 'settings':
         console.log('MiniApp: Rendering Settings view');
         return (
