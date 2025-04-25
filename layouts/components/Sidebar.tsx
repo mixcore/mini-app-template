@@ -39,7 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div className={`hidden md:block app-sidebar bg-background border-r transition-all duration-300 ${sidebarOpen ? 'w-[240px]' : 'w-[60px]'}`} data-collapsible={sidebarOpen ? "default" : "icon"}>
       <div className="sticky top-0 h-[calc(100vh-4rem)] overflow-y-auto">
-        <nav className="p-3 flex flex-col gap-2">
+        <nav className="p-2 flex flex-col gap-2">
           <div data-sidebar="content" className="flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden">
             {/* Dashboard and Items */}
             <div data-sidebar="group" className="relative flex w-full min-w-0 flex-col p-2">
