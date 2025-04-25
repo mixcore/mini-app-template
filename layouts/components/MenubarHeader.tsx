@@ -285,40 +285,40 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
             {appConfig.displayName}
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => handleViewChange('dashboard')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('dashboard')}>
               <LayoutDashboard className="mr-2 h-4 w-4" />
               Dashboard
             </MenubarItem>
-            <MenubarItem onClick={() => handleViewChange('list')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('list')}>
               <ListTodo className="mr-2 h-4 w-4" />
               Items
             </MenubarItem>
-            <MenubarItem onClick={() => handleViewChange('basicGrid')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('basicGrid')}>
               <Grid className="mr-2 h-4 w-4" />
               Basic Grid
             </MenubarItem>
-            <MenubarItem onClick={() => handleViewChange('kanban')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('kanban')}>
               <Trello className="mr-2 h-4 w-4" />
               Kanban Board
             </MenubarItem>
-            <MenubarItem onClick={() => handleViewChange('calendar')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('calendar')}>
               <CalendarDays className="mr-2 h-4 w-4" />
               Calendar
             </MenubarItem>
-            <MenubarItem onClick={() => handleViewChange('canvas')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('canvas')}>
               <Palette className="mr-2 h-4 w-4" />
               Canvas Editor
             </MenubarItem>
-            <MenubarItem onClick={() => handleViewChange('workflow')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('workflow')}>
               <Share2 className="mr-2 h-4 w-4" />
               Workflow
             </MenubarItem>
-            <MenubarItem onClick={() => handleViewChange('settings')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('settings')}>
               <Settings className="mr-2 h-4 w-4" />
               Settings
             </MenubarItem>
             <MenubarSeparator />
-            <MenubarItem onClick={copyDeepLink}>
+            <MenubarItem className="font-normal" onClick={copyDeepLink}>
               <Copy className="mr-2 h-4 w-4" />
               Copy Link
             </MenubarItem>
@@ -327,44 +327,44 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
         
         <MenubarMenu>
           <MenubarTrigger 
-            className={activeView === 'dashboard' ? 'bg-accent text-accent-foreground' : ''}
+            className={`font-normal ${activeView === 'dashboard' ? 'bg-accent text-accent-foreground' : ''}`}
             onClick={() => handleViewChange('dashboard')}
           >
             <LayoutDashboard className="mr-2 h-4 w-4 inline-block" />
             Dashboard
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>View Dashboard Statistics</MenubarItem>
-            <MenubarItem>Configure Widgets</MenubarItem>
+            <MenubarItem className="font-normal">View Dashboard Statistics</MenubarItem>
+            <MenubarItem className="font-normal">Configure Widgets</MenubarItem>
             <MenubarSeparator />
-            <MenubarItem>Refresh Data</MenubarItem>
+            <MenubarItem className="font-normal">Refresh Data</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         
         <MenubarMenu>
           <MenubarTrigger 
-            className={activeView === 'list' ? 'bg-accent text-accent-foreground' : ''}
+            className={`font-normal ${activeView === 'list' ? 'bg-accent text-accent-foreground' : ''}`}
             onClick={() => handleViewChange('list')}
           >
             <ListTodo className="mr-2 h-4 w-4 inline-block" />
             Items
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => console.log('create new')}>
+            <MenubarItem className="font-normal" onClick={() => console.log('create new')}>
               <Plus className="mr-2 h-4 w-4" />
               Create New
             </MenubarItem>
             <MenubarSeparator />
             <MenubarSub>
-              <MenubarSubTrigger>View Options</MenubarSubTrigger>
+              <MenubarSubTrigger className="font-normal">View Options</MenubarSubTrigger>
               <MenubarSubContent>
-                <MenubarItem>List View</MenubarItem>
-                <MenubarItem>Grid View</MenubarItem>
-                <MenubarItem>Table View</MenubarItem>
+                <MenubarItem className="font-normal">List View</MenubarItem>
+                <MenubarItem className="font-normal">Grid View</MenubarItem>
+                <MenubarItem className="font-normal">Table View</MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
             <MenubarSeparator />
-            <MenubarItem>
+            <MenubarItem className="font-normal">
               <Eye className="mr-2 h-4 w-4" />
               Preview
             </MenubarItem>
@@ -373,7 +373,7 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
         
         <MenubarMenu>
           <MenubarTrigger 
-            className={activeView === 'settings' ? 'bg-accent text-accent-foreground' : ''}
+            className={`font-normal ${activeView === 'settings' ? 'bg-accent text-accent-foreground' : ''}`}
             disabled={activeView === 'detail' && !selectedItemId}
             onClick={() => handleViewChange('settings')}
           >
@@ -381,23 +381,23 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
             Settings
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>General Settings</MenubarItem>
-            <MenubarItem>User Preferences</MenubarItem>
+            <MenubarItem className="font-normal">General Settings</MenubarItem>
+            <MenubarItem className="font-normal">User Preferences</MenubarItem>
             <MenubarSeparator />
-            <MenubarItem>Advanced Configuration</MenubarItem>
+            <MenubarItem className="font-normal">Advanced Configuration</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
 
         <MenubarMenu>
           <MenubarTrigger 
-            className={activeView === 'basicGrid' ? 'bg-accent text-accent-foreground' : ''}
+            className={`font-normal ${activeView === 'basicGrid' ? 'bg-accent text-accent-foreground' : ''}`}
             onClick={() => handleViewChange('basicGrid')}
           >
             <Grid className="mr-2 h-4 w-4 inline-block" />
             Grid
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => handleViewChange('basicGrid')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('basicGrid')}>
               Basic Grid View
             </MenubarItem>
           </MenubarContent>
@@ -405,14 +405,14 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
 
         <MenubarMenu>
           <MenubarTrigger 
-            className={activeView === 'kanban' ? 'bg-accent text-accent-foreground' : ''}
+            className={`font-normal ${activeView === 'kanban' ? 'bg-accent text-accent-foreground' : ''}`}
             onClick={() => handleViewChange('kanban')}
           >
             <Trello className="mr-2 h-4 w-4 inline-block" />
             Kanban
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => handleViewChange('kanban')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('kanban')}>
               Kanban Board
             </MenubarItem>
           </MenubarContent>
@@ -420,14 +420,14 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
 
         <MenubarMenu>
           <MenubarTrigger 
-            className={activeView === 'calendar' ? 'bg-accent text-accent-foreground' : ''}
+            className={`font-normal ${activeView === 'calendar' ? 'bg-accent text-accent-foreground' : ''}`}
             onClick={() => handleViewChange('calendar')}
           >
             <CalendarDays className="mr-2 h-4 w-4 inline-block" />
             Calendar
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => handleViewChange('calendar')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('calendar')}>
               Calendar View
             </MenubarItem>
           </MenubarContent>
@@ -435,14 +435,14 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
 
         <MenubarMenu>
           <MenubarTrigger 
-            className={activeView === 'canvas' ? 'bg-accent text-accent-foreground' : ''}
+            className={`font-normal ${activeView === 'canvas' ? 'bg-accent text-accent-foreground' : ''}`}
             onClick={() => handleViewChange('canvas')}
           >
             <Palette className="mr-2 h-4 w-4 inline-block" />
             Canvas
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => handleViewChange('canvas')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('canvas')}>
               Canvas Editor
             </MenubarItem>
           </MenubarContent>
@@ -450,14 +450,14 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
 
         <MenubarMenu>
           <MenubarTrigger 
-            className={activeView === 'workflow' ? 'bg-accent text-accent-foreground' : ''}
+            className={`font-normal ${activeView === 'workflow' ? 'bg-accent text-accent-foreground' : ''}`}
             onClick={() => handleViewChange('workflow')}
           >
             <Share2 className="mr-2 h-4 w-4 inline-block" />
             Workflow
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => handleViewChange('workflow')}>
+            <MenubarItem className="font-normal" onClick={() => handleViewChange('workflow')}>
               Workflow Editor
             </MenubarItem>
           </MenubarContent>
@@ -523,50 +523,50 @@ export const MenubarHeader: React.FC<MenubarHeaderProps> = ({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel className="font-normal">Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem onClick={() => console.log('Refresh')}>
+            <DropdownMenuItem className="font-normal" onClick={() => console.log('Refresh')}>
               Refresh data
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => console.log('Export')}>
+            <DropdownMenuItem className="font-normal" onClick={() => console.log('Export')}>
               Export as CSV
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuLabel>Views</DropdownMenuLabel>
+          <DropdownMenuLabel className="font-normal">Views</DropdownMenuLabel>
           <DropdownMenuGroup>
-            <DropdownMenuItem onClick={() => handleViewChange('dashboard')}>
+            <DropdownMenuItem className="font-normal" onClick={() => handleViewChange('dashboard')}>
               <LayoutDashboard className="mr-2 h-4 w-4" />
               Dashboard
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleViewChange('list')}>
+            <DropdownMenuItem className="font-normal" onClick={() => handleViewChange('list')}>
               <ListTodo className="mr-2 h-4 w-4" />
               Items
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleViewChange('basicGrid')}>
+            <DropdownMenuItem className="font-normal" onClick={() => handleViewChange('basicGrid')}>
               <Grid className="mr-2 h-4 w-4" />
               Basic Grid
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleViewChange('kanban')}>
+            <DropdownMenuItem className="font-normal" onClick={() => handleViewChange('kanban')}>
               <Trello className="mr-2 h-4 w-4" />
               Kanban Board
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleViewChange('calendar')}>
+            <DropdownMenuItem className="font-normal" onClick={() => handleViewChange('calendar')}>
               <CalendarDays className="mr-2 h-4 w-4" />
               Calendar
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleViewChange('canvas')}>
+            <DropdownMenuItem className="font-normal" onClick={() => handleViewChange('canvas')}>
               <Palette className="mr-2 h-4 w-4" />
               Canvas Editor
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleViewChange('workflow')}>
+            <DropdownMenuItem className="font-normal" onClick={() => handleViewChange('workflow')}>
               <Share2 className="mr-2 h-4 w-4" />
               Workflow
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => handleViewChange('settings')}>
+          <DropdownMenuItem className="font-normal" onClick={() => handleViewChange('settings')}>
             <Settings className="mr-2 h-4 w-4" />
             Settings
           </DropdownMenuItem>

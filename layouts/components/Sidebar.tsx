@@ -8,14 +8,15 @@ import {
   CalendarDays, 
   Palette, 
   Share2,
-  ChevronDown,
   ChevronRight,
   Users,
   UserPlus,
-  UserCheck
+  UserCheck,
+  SquareTerminal,
+  Bot,
+  BookOpen,
+  Settings2
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { ViewType } from './types';
 
 interface SidebarProps { 
@@ -32,184 +33,287 @@ export const Sidebar: React.FC<SidebarProps> = ({
   handleViewChange 
 }) => {
   const [teamsMenuOpen, setTeamsMenuOpen] = useState(false);
+  const [layoutsMenuOpen, setLayoutsMenuOpen] = useState(true);
+  const [advancedMenuOpen, setAdvancedMenuOpen] = useState(true);
 
   return (
-  <div className={`hidden md:block app-sidebar bg-background border-r transition-all duration-300 ${sidebarOpen ? 'w-[240px]' : 'w-[60px]'}`}>
-    <div className="sticky top-0 h-[calc(100vh-4rem)] overflow-y-auto">
-      <nav className="p-3 flex flex-col gap-1">
-        <Button
-          variant={activeView === 'dashboard' ? 'secondary' : 'ghost'}
-          size="sm"
-          className="justify-start font-normal"
-          onClick={() => {
-            console.log('Sidebar: Clicked dashboard view');
-            handleViewChange('dashboard');
-          }}
-        >
-          <LayoutDashboard className="h-5 w-5 mr-2" />
-          {sidebarOpen && <span className="font-normal">Dashboard</span>}
-        </Button>
-        <Button
-          variant={activeView === 'list' ? 'secondary' : 'ghost'}
-          size="sm"
-          className="justify-start font-normal"
-          onClick={() => {
-            console.log('Sidebar: Clicked list view');
-            handleViewChange('list');
-          }}
-        >
-          <ListTodo className="h-5 w-5 mr-2" />
-          {sidebarOpen && <span className="font-normal">Items</span>}
-        </Button>
-        
-        <Separator className="my-2" />
-        
-        {/* Teams - Collapsible Menu */}
-        <div className="py-1 px-2">
-          {sidebarOpen && <p className="text-xs text-muted-foreground mb-1">Teams</p>}
-        </div>
-        
-        <Button
-          variant="ghost"
-          size="sm"
-          className="justify-start w-full font-normal"
-          onClick={() => setTeamsMenuOpen(!teamsMenuOpen)}
-        >
-          <Users className="h-5 w-5 mr-2" />
-          {sidebarOpen && (
-            <div className="flex justify-between items-center w-full">
-              <span className="font-normal">Team Management</span>
-              {teamsMenuOpen ? 
-                <ChevronDown className="h-4 w-4 ml-2" /> : 
-                <ChevronRight className="h-4 w-4 ml-2" />
-              }
+    <div className={`hidden md:block app-sidebar bg-background border-r transition-all duration-300 ${sidebarOpen ? 'w-[240px]' : 'w-[60px]'}`} data-collapsible={sidebarOpen ? "default" : "icon"}>
+      <div className="sticky top-0 h-[calc(100vh-4rem)] overflow-y-auto">
+        <nav className="p-3 flex flex-col gap-2">
+          <div data-sidebar="content" className="flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden">
+            {/* Dashboard and Items */}
+            <div data-sidebar="group" className="relative flex w-full min-w-0 flex-col p-2">
+              <ul data-sidebar="menu" className="flex w-full min-w-0 flex-col gap-1">
+                <li data-sidebar="menu-item" className="group/menu-item relative">
+                  <button 
+                    data-sidebar="menu-button" 
+                    data-size="default" 
+                    data-active={activeView === 'dashboard'} 
+                    className="flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm"
+                    onClick={() => {
+                      console.log('Sidebar: Clicked dashboard view');
+                      handleViewChange('dashboard');
+                    }}
+                  >
+                    <LayoutDashboard className="h-5 w-5" />
+                    {sidebarOpen && <span>Dashboard</span>}
+                  </button>
+                </li>
+                <li data-sidebar="menu-item" className="group/menu-item relative">
+                  <button 
+                    data-sidebar="menu-button" 
+                    data-size="default" 
+                    data-active={activeView === 'list'} 
+                    className="flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm"
+                    onClick={() => {
+                      console.log('Sidebar: Clicked list view');
+                      handleViewChange('list');
+                    }}
+                  >
+                    <ListTodo className="h-5 w-5" />
+                    {sidebarOpen && <span>Items</span>}
+                  </button>
+                </li>
+              </ul>
             </div>
-          )}
-        </Button>
-        
-        {teamsMenuOpen && sidebarOpen && (
-          <div className="ml-6 flex flex-col gap-1 mt-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="justify-start font-normal"
-              onClick={() => {
-                console.log('Sidebar: Clicked team members view');
-              }}
-            >
-              <UserCheck className="h-5 w-5 mr-2" />
-              <span className="font-normal">Members</span>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="justify-start font-normal"
-              onClick={() => {
-                console.log('Sidebar: Clicked invite team members view');
-              }}
-            >
-              <UserPlus className="h-5 w-5 mr-2" />
-              <span className="font-normal">Invite</span>
-            </Button>
+
+            {/* Teams Section */}
+            <div data-sidebar="group" className="relative flex w-full min-w-0 flex-col p-2">
+              {sidebarOpen && <div data-sidebar="group-label" className="flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0">Teams</div>}
+              <ul data-sidebar="menu" className="flex w-full min-w-0 flex-col gap-1">
+                <li data-sidebar="menu-item" className="group/menu-item relative group/collapsible" data-state={teamsMenuOpen ? "open" : "closed"}>
+                  <button 
+                    data-sidebar="menu-button" 
+                    data-size="default" 
+                    data-active="false" 
+                    data-state={teamsMenuOpen ? "open" : "closed"}
+                    className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm"
+                    onClick={() => setTeamsMenuOpen(!teamsMenuOpen)}
+                    aria-expanded={teamsMenuOpen}
+                    aria-controls={`teams-submenu`}
+                  >
+                    <Users className="h-5 w-5" />
+                    {sidebarOpen && <span>Team Management</span>}
+                    {sidebarOpen && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />}
+                  </button>
+                  {teamsMenuOpen && sidebarOpen && (
+                    <div data-state="open" id="teams-submenu">
+                      <ul data-sidebar="menu-sub" className="mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden">
+                        <li>
+                          <a 
+                            href="#" 
+                            data-sidebar="menu-sub-button" 
+                            data-size="md" 
+                            className="flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground text-sm group-data-[collapsible=icon]:hidden"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              console.log('Sidebar: Clicked team members view');
+                            }}
+                          >
+                            <UserCheck className="h-4 w-4" />
+                            <span>Members</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a 
+                            href="#" 
+                            data-sidebar="menu-sub-button" 
+                            data-size="md" 
+                            className="flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground text-sm group-data-[collapsible=icon]:hidden"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              console.log('Sidebar: Clicked invite team members view');
+                            }}
+                          >
+                            <UserPlus className="h-4 w-4" />
+                            <span>Invite</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              </ul>
+            </div>
+            
+            {/* Layout views */}
+            <div data-sidebar="group" className="relative flex w-full min-w-0 flex-col p-2">
+              {sidebarOpen && <div data-sidebar="group-label" className="flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0">Layout Views</div>}
+              <ul data-sidebar="menu" className="flex w-full min-w-0 flex-col gap-1">
+                <li data-sidebar="menu-item" className="group/menu-item relative group/collapsible" data-state={layoutsMenuOpen ? "open" : "closed"}>
+                  <button 
+                    data-sidebar="menu-button" 
+                    data-size="default" 
+                    data-active="false" 
+                    data-state={layoutsMenuOpen ? "open" : "closed"}
+                    className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm"
+                    onClick={() => setLayoutsMenuOpen(!layoutsMenuOpen)}
+                    aria-expanded={layoutsMenuOpen}
+                    aria-controls="layouts-submenu"
+                  >
+                    <SquareTerminal className="h-5 w-5" />
+                    {sidebarOpen && <span>Layouts</span>}
+                    {sidebarOpen && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />}
+                  </button>
+                  {layoutsMenuOpen && sidebarOpen && (
+                    <div data-state="open" id="layouts-submenu">
+                      <ul data-sidebar="menu-sub" className="mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden">
+                        <li>
+                          <a 
+                            href="#" 
+                            data-sidebar="menu-sub-button" 
+                            data-size="md" 
+                            data-active={activeView === 'basicGrid'}
+                            className="flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground text-sm group-data-[collapsible=icon]:hidden"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleViewChange('basicGrid');
+                            }}
+                          >
+                            <Grid className="h-4 w-4" />
+                            <span>Basic Grid</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a 
+                            href="#" 
+                            data-sidebar="menu-sub-button" 
+                            data-size="md" 
+                            data-active={activeView === 'kanban'}
+                            className="flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground text-sm group-data-[collapsible=icon]:hidden"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleViewChange('kanban');
+                            }}
+                          >
+                            <Trello className="h-4 w-4" />
+                            <span>Kanban Board</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a 
+                            href="#" 
+                            data-sidebar="menu-sub-button" 
+                            data-size="md" 
+                            data-active={activeView === 'calendar'}
+                            className="flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground text-sm group-data-[collapsible=icon]:hidden"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleViewChange('calendar');
+                            }}
+                          >
+                            <CalendarDays className="h-4 w-4" />
+                            <span>Calendar</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              </ul>
+            </div>
+            
+            {/* Advanced Editors */}
+            <div data-sidebar="group" className="relative flex w-full min-w-0 flex-col p-2">
+              {sidebarOpen && <div data-sidebar="group-label" className="flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0">Advanced Editors</div>}
+              <ul data-sidebar="menu" className="flex w-full min-w-0 flex-col gap-1">
+                <li data-sidebar="menu-item" className="group/menu-item relative group/collapsible" data-state={advancedMenuOpen ? "open" : "closed"}>
+                  <button 
+                    data-sidebar="menu-button" 
+                    data-size="default" 
+                    data-active="false" 
+                    data-state={advancedMenuOpen ? "open" : "closed"}
+                    className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm"
+                    onClick={() => setAdvancedMenuOpen(!advancedMenuOpen)}
+                    aria-expanded={advancedMenuOpen}
+                    aria-controls="advanced-submenu"
+                  >
+                    <Bot className="h-5 w-5" />
+                    {sidebarOpen && <span>Advanced Tools</span>}
+                    {sidebarOpen && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />}
+                  </button>
+                  {advancedMenuOpen && sidebarOpen && (
+                    <div data-state="open" id="advanced-submenu">
+                      <ul data-sidebar="menu-sub" className="mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden">
+                        <li>
+                          <a 
+                            href="#" 
+                            data-sidebar="menu-sub-button" 
+                            data-size="md" 
+                            data-active={activeView === 'canvas'}
+                            className="flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground text-sm group-data-[collapsible=icon]:hidden"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleViewChange('canvas');
+                            }}
+                          >
+                            <Palette className="h-4 w-4" />
+                            <span>Canvas Editor</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a 
+                            href="#" 
+                            data-sidebar="menu-sub-button" 
+                            data-size="md" 
+                            data-active={activeView === 'workflow'}
+                            className="flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground text-sm group-data-[collapsible=icon]:hidden"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleViewChange('workflow');
+                            }}
+                          >
+                            <Share2 className="h-4 w-4" />
+                            <span>Workflow</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              </ul>
+            </div>
+            
+            {/* Documentation and Settings */}
+            <div data-sidebar="group" className="relative flex w-full min-w-0 flex-col p-2 group-data-[collapsible=icon]:hidden">
+              {sidebarOpen && <div data-sidebar="group-label" className="flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0">System</div>}
+              <ul data-sidebar="menu" className="flex w-full min-w-0 flex-col gap-1">
+                <li data-sidebar="menu-item" className="group/menu-item relative group/collapsible" data-state="closed">
+                  <button 
+                    data-sidebar="menu-button" 
+                    data-size="default" 
+                    data-active="false" 
+                    data-state="closed"
+                    className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm"
+                  >
+                    <BookOpen className="h-5 w-5" />
+                    {sidebarOpen && <span>Documentation</span>}
+                    {sidebarOpen && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />}
+                  </button>
+                </li>
+                <li data-sidebar="menu-item" className="group/menu-item relative group/collapsible" data-state="closed">
+                  <button 
+                    data-sidebar="menu-button" 
+                    data-size="default" 
+                    data-active={activeView === 'settings'} 
+                    data-state="closed"
+                    className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm"
+                    onClick={() => {
+                      console.log('Sidebar: Clicked settings view');
+                      handleViewChange('settings');
+                    }}
+                  >
+                    <Settings2 className="h-5 w-5" />
+                    {sidebarOpen && <span>Settings</span>}
+                    {sidebarOpen && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />}
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
-        )}
-        
-        <Separator className="my-2" />
-        
-        {/* Layout views */}
-        <div className="py-1 px-2">
-          {sidebarOpen && <p className="text-xs text-muted-foreground mb-1">Layout Views</p>}
-        </div>
-        
-        <Button
-          variant={activeView === 'basicGrid' ? 'secondary' : 'ghost'}
-          size="sm"
-          className="justify-start font-normal"
-          onClick={() => {
-            console.log('Sidebar: Clicked basicGrid view');
-            handleViewChange('basicGrid');
-          }}
-        >
-          <Grid className="h-5 w-5 mr-2" />
-          {sidebarOpen && <span className="font-normal">Basic Grid</span>}
-        </Button>
-        
-        <Button
-          variant={activeView === 'kanban' ? 'secondary' : 'ghost'}
-          size="sm"
-          className="justify-start font-normal"
-          onClick={() => {
-            console.log('Sidebar: Clicked kanban view');
-            handleViewChange('kanban');
-          }}
-        >
-          <Trello className="h-5 w-5 mr-2" />
-          {sidebarOpen && <span className="font-normal">Kanban Board</span>}
-        </Button>
-        
-        <Button
-          variant={activeView === 'calendar' ? 'secondary' : 'ghost'}
-          size="sm"
-          className="justify-start font-normal"
-          onClick={() => {
-            console.log('Sidebar: Clicked calendar view');
-            handleViewChange('calendar');
-          }}
-        >
-          <CalendarDays className="h-5 w-5 mr-2" />
-          {sidebarOpen && <span className="font-normal">Calendar</span>}
-        </Button>
-        
-        <Separator className="my-2" />
-        
-        {/* Advanced views */}
-        <div className="py-1 px-2">
-          {sidebarOpen && <p className="text-xs text-muted-foreground mb-1">Advanced Editors</p>}
-        </div>
-        
-        <Button
-          variant={activeView === 'canvas' ? 'secondary' : 'ghost'}
-          size="sm"
-          className="justify-start font-normal"
-          onClick={() => {
-            console.log('Sidebar: Clicked canvas view');
-            handleViewChange('canvas');
-          }}
-        >
-          <Palette className="h-5 w-5 mr-2" />
-          {sidebarOpen && <span className="font-normal">Canvas Editor</span>}
-        </Button>
-        
-        <Button
-          variant={activeView === 'workflow' ? 'secondary' : 'ghost'}
-          size="sm"
-          className="justify-start font-normal"
-          onClick={() => {
-            console.log('Sidebar: Clicked workflow view');
-            handleViewChange('workflow');
-          }}
-        >
-          <Share2 className="h-5 w-5 mr-2" />
-          {sidebarOpen && <span className="font-normal">Workflow</span>}
-        </Button>
-        
-        <Separator className="my-2" />
-        
-        <Button
-          variant={activeView === 'settings' ? 'secondary' : 'ghost'}
-          size="sm"
-          className="justify-start font-normal"
-          onClick={() => {
-            console.log('Sidebar: Clicked settings view');
-            handleViewChange('settings');
-          }}
-        >
-          <Settings className="h-5 w-5 mr-2" />
-          {sidebarOpen && <span className="font-normal">Settings</span>}
-        </Button>
-      </nav>
+        </nav>
+      </div>
     </div>
-  </div>
   );
 };
 
