@@ -76,21 +76,19 @@ export function AppShell({
   // Update breadcrumbs when view or project changes
   useEffect(() => {
     const breadcrumbs = [
-      { label: 'Dashboard', href: '/dashboard' },
-      { label: 'Apps', href: '/dashboard/apps' },
-      { label: appConfig.displayName, href: `/dashboard/apps/${appConfig.appId}` }
+      { label: appConfig.displayName, href: `/apps/${appConfig.appId}` }
     ];
 
     if (activeView !== 'dashboard') {
       // Add view-specific breadcrumb
       const viewLabel = activeView.charAt(0).toUpperCase() + activeView.slice(1);
-      const viewPath = `/dashboard/apps/${appConfig.appId}?view=${activeView}`;
+      const viewPath = `/apps/${appConfig.appId}?view=${activeView}`;
       breadcrumbs.push({ label: viewLabel, href: viewPath });
     }
 
     if (selectedItemId && selectedItemTitle && activeView === 'detail') {
       // Add item-specific breadcrumb
-      const itemPath = `/dashboard/apps/${appConfig.appId}?view=detail&id=${selectedItemId}`;
+      const itemPath = `/apps/${appConfig.appId}?view=detail&id=${selectedItemId}`;
       breadcrumbs.push({ label: selectedItemTitle, href: itemPath });
     }
 
